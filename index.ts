@@ -1,19 +1,14 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import dotenv from "dotenv";
-import { getProvinces } from "./helpers";
+import router from "./routes";
 
 dotenv.config();
 
 const app = express();
-
-app.get("/", async (request: Request, response: Response) => { 
-  response.status(200).json({
-    message: await getProvinces()
-  });
-}); 
+app.use(router);
 
 app.listen(process.env.PORT, () => { 
-  console.log("Server running at PORT: ", process.env.PORT); 
+  console.log("Server running at PORT:", process.env.PORT); 
 }).on("error", (error) => {
   throw new Error(error.message);
 });
