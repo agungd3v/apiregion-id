@@ -8,5 +8,6 @@ router.get("/api/province", controller.provinces);
 router.get("/api/regency", controller.regencies);
 router.get("/api/district", controller.districts);
 router.get("/api/village", controller.villages);
+router.post("/api/postalcode", controller.postalcode);
 
 export default router;
