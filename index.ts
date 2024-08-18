@@ -1,13 +1,14 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
+import { getProvinces } from "./helpers";
 
 dotenv.config();
 
 const app = express();
 
-app.get("/", (request: Request, response: Response) => { 
+app.get("/", async (request: Request, response: Response) => { 
   response.status(200).json({
-    message: "Selamat datang di api wilayah indonesia"
+    message: await getProvinces()
   });
 }); 
 
