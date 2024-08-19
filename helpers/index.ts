@@ -76,6 +76,9 @@ export const getPostalcode = async (param: CodeInterface) => {
     if (param.regency.split(".").length == 2) {
       param.regency = param.regency.split(". ")[1].trim();
     }
+    if (param.regency.toLowerCase().split("kota").length == 2) {
+      param.regency = param.regency.split("kota")[1].trim();
+    }
 
     let f1: any[] = jsonData.filter((filter: any) => filter.p.toLowerCase() == param.province.toLowerCase());
     if (f1.length > 0) {
