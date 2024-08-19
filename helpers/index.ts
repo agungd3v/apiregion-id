@@ -73,6 +73,10 @@ export const getPostalcode = async (param: CodeInterface) => {
     const data = decrypt(postalcode);
     const jsonData = await JSON.parse(data);
 
+    if (param.regency.split(". ").length == 2) {
+      param.regency = param.regency.split(". ")[1];
+    }
+
     let f1: any[] = jsonData.filter((filter: any) => filter.p.toLowerCase() == param.province.toLowerCase());
     if (f1.length > 0) {
       f1 = f1.filter((filter: any) => filter.r.toLowerCase() == param.regency.toLowerCase());
