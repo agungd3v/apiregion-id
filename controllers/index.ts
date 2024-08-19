@@ -47,7 +47,7 @@ class Controller {
       if (!village) throw "Error, village required";
 
       const data = await getPostalcode({...request.body});
-      return response.status(200).json({message: "Successfully get villages", data: data});
+      return response.status(200).json({message: "Successfully get postalcode", data: data});
     } catch (error: any) {
       return response.status(400).json({message: error.toString()});
     }
