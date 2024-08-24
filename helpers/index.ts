@@ -4,11 +4,12 @@ import province from "../data/province"
 import regency from "../data/regency";
 import village from "../data/village";
 import { decrypt } from "../utils"
+import database from "../database";
 
 export const getProvince = async () => {
   try {
-    const data = decrypt(province);
-    const jsonData = await JSON.parse(data);
+    const data = await database.client.collection("provinces").find();
+    const jsonData = data.toArray();
 
     return jsonData;
   } catch (error) {
@@ -18,14 +19,10 @@ export const getProvince = async () => {
 
 export const getRegency = async (province_id?: string) => {
   try {
-    const data = decrypt(regency);
-    const jsonData = await JSON.parse(data);
+    const jsonData = await database.client.collection("regencies");
 
-    if (province_id) {
-      return jsonData.filter((filter: any) => filter.vp == province_id);
-    }
-
-    return jsonData;
+    if (province_id) return jsonData.find({vp: province_id}).toArray();
+    return jsonData.find().toArray();
   } catch (error) {
     return [];
   }
@@ -33,14 +30,10 @@ export const getRegency = async (province_id?: string) => {
 
 export const getDistrict = async (regency_id?: string) => {
   try {
-    const data = decrypt(district);
-    const jsonData = await JSON.parse(data);
+    const jsonData = await database.client.collection("districts");
 
-    if (regency_id) {
-      return jsonData.filter((filter: any) => filter.vr == regency_id);
-    }
-
-    return jsonData;
+    if (regency_id) return jsonData.find({vr: regency_id}).toArray();
+    return jsonData.find().toArray();
   } catch (error) {
     return [];
   }
@@ -48,14 +41,13 @@ export const getDistrict = async (regency_id?: string) => {
 
 export const getVillage = async (district_id?: string) => {
   try {
-    const data = decrypt(village);
-    const jsonData = await JSON.parse(data);
+    const jsonData = await database.client.collection("villages");
 
     if (district_id) {
-      return jsonData.filter((filter: any) => filter.vd == district_id);
+      return jsonData.find({vd: district_id}).toArray();
     }
 
-    return jsonData;
+    return jsonData.find().toArray();
   } catch (error) {
     return [];
   }
