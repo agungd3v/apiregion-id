@@ -1,4 +1,3 @@
-import { decrypt } from "../utils"
 import database from "../database";
 
 export const getProvince = async () => {
