@@ -1,20 +1,5 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 
-// interface DProps {
-//   callback(v: any): void;
-// }
-
-// const client = new MongoClient(process.env.DB_URI as string, {
-//   serverApi: {
-//     version: ServerApiVersion.v1,
-//     strict: true,
-//     deprecationErrors: true,
-//   }
-// });
-// client.connect();
-
-// export default client.db("regionalid");
-
 class Database {
   public client: any;
 
