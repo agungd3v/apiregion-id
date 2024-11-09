@@ -3,7 +3,7 @@ import database from "../database";
 export const getProvince = async () => {
   try {
     const data = await database.client.collection("provinces").find();
-    const jsonData = data.toArray();
+    const jsonData: any = data.toArray();
 
     return jsonData;
   } catch (error) {
@@ -60,7 +60,7 @@ export const getPostalcode = async (param: CodeInterface) => {
       param.regency = param.regency.split("kota")[1].trim();
     }
 
-    const jsonData = await database.client.collection("postalcode").find({
+    const jsonData: any = await database.client.collection("postalcode").find({
       p: {$regex: param.province, $options: "i"},
       r: {$regex: param.regency, $options: "i"},
       v: {$regex: param.district, $options: "i"},
