@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import cors from "cors";
 dotenv.config();
 
 import { injectSpeedInsights } from "@vercel/speed-insights";
@@ -9,6 +10,7 @@ import router from "./routes";
 const app = express();
 injectSpeedInsights();
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(router);
 app.listen(process.env.PORT, () => {}).on("error", (error) => new Error(error.message));
