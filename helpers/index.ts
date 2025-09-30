@@ -1,33 +1,35 @@
 import database from "../database";
 
-export const getProvince = async () => {
+export const getProvince = async (params: any) => {
   try {
-    const data = await database.client.collection("provinces").find();
-    const jsonData: any = data.toArray();
-
-    return jsonData;
+    const data = await database.client.collection("provinces").find({
+      'l': {$regex: params.q ?? '', $options: 'i'}
+    });
+    return data.toArray();
   } catch (error) {
     return [];
   }
 }
 
-export const getRegency = async (province_id?: string) => {
+export const getRegency = async (params: any) => {
   try {
-    const jsonData = await database.client.collection("regencies");
-
-    if (province_id) return jsonData.find({vp: province_id}).toArray();
-    return jsonData.find().toArray();
+    const data = await database.client.collection("regencies").find({
+      'vp': {$regex: params.id ?? '', $options: 'i'},
+      'l': {$regex: params.q ?? '', $options: 'i'}
+    });
+    return data.toArray();
   } catch (error) {
     return [];
   }
 }
 
-export const getDistrict = async (regency_id?: string) => {
+export const getDistrict = async (params: any) => {
   try {
-    const jsonData = await database.client.collection("districts");
-
-    if (regency_id) return jsonData.find({vr: regency_id}).toArray();
-    return jsonData.find().toArray();
+    const data = await database.client.collection("districts").find({
+      'vr': {$regex: params.id ?? '', $options: 'i'},
+      'l': {$regex: params.q ?? '', $options: 'i'}
+    });
+    return data.toArray();
   } catch (error) {
     return [];
   }

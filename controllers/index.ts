@@ -4,7 +4,7 @@ import { getDistrict, getPostalcode, getProvince, getRegency, getVillage } from 
 class Controller {
   async provinces(request: Request, response: Response) {
     try {
-      const data = await getProvince();
+      const data = await getProvince(request.query);
       return response.status(200).json({message: "Successfully get provinces", data: data});
     } catch (error: any) {
       return response.status(400).json({message: error.toString()});
@@ -12,8 +12,7 @@ class Controller {
   }
   async regencies(request: Request, response: Response) {
     try {
-      const province_id: any = request.query.id;
-      const data = await getRegency(province_id);
+      const data = await getRegency(request.query);
       return response.status(200).json({message: "Successfully get regencies", data: data});
     } catch (error: any) {
       return response.status(400).json({message: error.toString()});
@@ -21,8 +20,7 @@ class Controller {
   }
   async districts(request: Request, response: Response) {
     try {
-      const regency_id: any = request.query.id;
-      const data = await getDistrict(regency_id);
+      const data = await getDistrict(request.query);
       return response.status(200).json({message: "Successfully get districts", data: data});
     } catch (error: any) {
       return response.status(400).json({message: error.toString()});

@@ -14,7 +14,7 @@ class Controller {
     provinces(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const data = yield (0, helpers_1.getProvince)();
+                const data = yield (0, helpers_1.getProvince)(request.query);
                 return response.status(200).json({ message: "Successfully get provinces", data: data });
             }
             catch (error) {
@@ -25,8 +25,7 @@ class Controller {
     regencies(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const province_id = request.query.id;
-                const data = yield (0, helpers_1.getRegency)(province_id);
+                const data = yield (0, helpers_1.getRegency)(request.query);
                 return response.status(200).json({ message: "Successfully get regencies", data: data });
             }
             catch (error) {
@@ -37,8 +36,7 @@ class Controller {
     districts(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const regency_id = request.query.id;
-                const data = yield (0, helpers_1.getDistrict)(regency_id);
+                const data = yield (0, helpers_1.getDistrict)(request.query);
                 return response.status(200).json({ message: "Successfully get districts", data: data });
             }
             catch (error) {

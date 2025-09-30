@@ -14,35 +14,41 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getPostalcode = exports.getVillage = exports.getDistrict = exports.getRegency = exports.getProvince = void 0;
 const database_1 = __importDefault(require("../database"));
-const getProvince = () => __awaiter(void 0, void 0, void 0, function* () {
+const getProvince = (params) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
-        const data = yield database_1.default.client.collection("provinces").find();
-        const jsonData = data.toArray();
-        return jsonData;
+        const data = yield database_1.default.client.collection("provinces").find({
+            'l': { $regex: (_a = params.q) !== null && _a !== void 0 ? _a : '', $options: 'i' }
+        });
+        return data.toArray();
     }
     catch (error) {
         return [];
     }
 });
 exports.getProvince = getProvince;
-const getRegency = (province_id) => __awaiter(void 0, void 0, void 0, function* () {
+const getRegency = (params) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
     try {
-        const jsonData = yield database_1.default.client.collection("regencies");
-        if (province_id)
-            return jsonData.find({ vp: province_id }).toArray();
-        return jsonData.find().toArray();
+        const data = yield database_1.default.client.collection("regencies").find({
+            'vp': { $regex: (_a = params.id) !== null && _a !== void 0 ? _a : '', $options: 'i' },
+            'l': { $regex: (_b = params.q) !== null && _b !== void 0 ? _b : '', $options: 'i' }
+        });
+        return data.toArray();
     }
     catch (error) {
         return [];
     }
 });
 exports.getRegency = getRegency;
-const getDistrict = (regency_id) => __awaiter(void 0, void 0, void 0, function* () {
+const getDistrict = (params) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
     try {
-        const jsonData = yield database_1.default.client.collection("districts");
-        if (regency_id)
-            return jsonData.find({ vr: regency_id }).toArray();
-        return jsonData.find().toArray();
+        const data = yield database_1.default.client.collection("districts").find({
+            'vr': { $regex: (_a = params.id) !== null && _a !== void 0 ? _a : '', $options: 'i' },
+            'l': { $regex: (_b = params.q) !== null && _b !== void 0 ? _b : '', $options: 'i' }
+        });
+        return data.toArray();
     }
     catch (error) {
         return [];
