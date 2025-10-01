@@ -28,8 +28,7 @@ class Controller {
   }
   async villages(request: Request, response: Response) {
     try {
-      const district_id: any = request.query.id;
-      const data = await getVillage(district_id);
+      const data = await getVillage(request.query);
       return response.status(200).json({message: "Successfully get villages", data: data});
     } catch (error: any) {
       return response.status(400).json({message: error.toString()});

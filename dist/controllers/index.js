@@ -47,8 +47,7 @@ class Controller {
     villages(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const district_id = request.query.id;
-                const data = yield (0, helpers_1.getVillage)(district_id);
+                const data = yield (0, helpers_1.getVillage)(request.query);
                 return response.status(200).json({ message: "Successfully get villages", data: data });
             }
             catch (error) {

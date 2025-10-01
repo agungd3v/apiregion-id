@@ -55,12 +55,14 @@ const getDistrict = (params) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getDistrict = getDistrict;
-const getVillage = (district_id) => __awaiter(void 0, void 0, void 0, function* () {
+const getVillage = (params) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
     try {
-        const jsonData = yield database_1.default.client.collection("villages");
-        if (district_id)
-            return jsonData.find({ vd: district_id }).toArray();
-        return jsonData.find().toArray();
+        const data = yield database_1.default.client.collection("villages").find({
+            'vd': { $regex: (_a = params.id) !== null && _a !== void 0 ? _a : '', $options: 'i' },
+            'l': { $regex: (_b = params.q) !== null && _b !== void 0 ? _b : '', $options: 'i' }
+        });
+        return data.toArray();
     }
     catch (error) {
         return [];

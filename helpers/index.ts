@@ -35,12 +35,13 @@ export const getDistrict = async (params: any) => {
   }
 }
 
-export const getVillage = async (district_id?: string) => {
+export const getVillage = async (params: any) => {
   try {
-    const jsonData = await database.client.collection("villages");
-
-    if (district_id) return jsonData.find({vd: district_id}).toArray();
-    return jsonData.find().toArray();
+    const data = await database.client.collection("villages").find({
+      'vd': {$regex: params.id ?? '', $options: 'i'},
+      'l': {$regex: params.q ?? '', $options: 'i'}
+    });
+    return data.toArray();
   } catch (error) {
     return [];
   }
